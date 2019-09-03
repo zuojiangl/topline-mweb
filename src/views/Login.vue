@@ -5,19 +5,24 @@
     <!-- 输入框 -->
     <van-cell-group>
       <van-field
-    v-model="user.mobile"
-    required
-    clearable
-    placeholder="请输入手机号"
-  />
+      v-validate="'required|digits:11'"
+      name="mobile"
+      :error-message="errors.first('mobile')"
+      v-model="user.mobile"
+      clearable
+      left-icon="phone-o"
+      placeholder="请输入手机号" />
 
-  <van-field
-    v-model="user.code"
-    clearable
-    placeholder="请输入验证码"
-    required>
-    <van-button slot="button" type="primary" size="small">发送验证码</van-button>
-  </van-field>
+      <van-field
+      v-validate="'required|digits:6'"
+      name="code"
+      :error-message="errors.first('code')"
+      v-model="user.code"
+      left-icon="envelop-o"
+      clearable
+      placeholder="请输入验证码">
+        <van-button slot="button" type="primary" size="small">发送验证码</van-button>
+      </van-field>
     </van-cell-group>
     <!-- 登录按钮 -->
     <div class="login-btn">

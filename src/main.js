@@ -5,8 +5,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './styles/index.less'
-Vue.config.productionTip = false
+import VeeValidate from 'vee-validate'
+
 Vue.use(Vant)
+Vue.use(VeeValidate)
+Vue.config.productionTip = false
+
 new Vue({
   router,
   store,
