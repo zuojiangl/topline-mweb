@@ -5,14 +5,14 @@
     <!-- 输入框 -->
     <van-cell-group>
       <van-field
-    v-model="value"
+    v-model="user.mobile"
     required
     clearable
     placeholder="请输入手机号"
   />
 
   <van-field
-    v-model="value"
+    v-model="user.code"
     clearable
     placeholder="请输入验证码"
     required>
@@ -21,14 +21,37 @@
     </van-cell-group>
     <!-- 登录按钮 -->
     <div class="login-btn">
-      <van-button class="btn" type="info">登录</van-button>
+      <van-button class="btn" type="info" @click="handleLogin">登录</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import { login } from '@/api/user'
 export default {
-
+  name: 'Login',
+  data () {
+    return {
+      user: {
+        mobile: '13911111111',
+        code: '246810'
+      }
+    }
+  },
+  methods: {
+    async handleLogin () {
+      try {
+        const res = await login(this.user)
+        console.log(res)
+        // 跳转页面，提示
+        this.$router.push('/')
+        this.$toast.success('登陆成功')
+      } catch (err) {
+        console.log(err)
+        this.$toast.fail('登录失败')
+      }
+    }
+  }
 }
 </script>
 
