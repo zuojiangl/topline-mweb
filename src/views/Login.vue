@@ -48,14 +48,20 @@ export default {
     ...mapMutations(['setUser']),
     async handleLogin () {
       try {
-        const data = await login(this.user)
-        // console.log(data)
-        // 存储登录状态
-        // this.$store.commit('setUser', data)
-        this.setUser(data)
-        // 跳转页面，提示
-        this.$router.push('/')
-        this.$toast.success('登陆成功')
+        // 表单验证
+        this.$validator.validate().then(async valid => {
+          // 验证失败
+          if (!valid) {
+            return
+          }
+          // 验证成功
+          const data = await login(this.user)
+          // 储存登录状态
+          this.setUser(data)
+          // 跳转到首页
+          this.$router.push('/')
+          this.$toast.success('登陆成功')
+        })
       } catch (err) {
         console.log(err)
         this.$toast.fail('登录失败')
