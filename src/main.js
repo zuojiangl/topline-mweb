@@ -5,10 +5,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './styles/index.less'
-import VeeValidate from 'vee-validate'
+import VeeValidate, { Validator } from 'vee-validate'
+// 导入语言包
+import zhCN from 'vee-validate/dist/locale/zh_CN'
 
 Vue.use(Vant)
 Vue.use(VeeValidate)
+// 配置中文
+Validator.localize('zhCN', zhCN)
 Vue.config.productionTip = false
 
 new Vue({
