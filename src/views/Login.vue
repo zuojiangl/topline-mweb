@@ -41,8 +41,10 @@ export default {
   methods: {
     async handleLogin () {
       try {
-        const res = await login(this.user)
-        console.log(res)
+        const data = await login(this.user)
+        console.log(data)
+        // 存储登录状态
+        this.$store.commit('setUser', data)
         // 跳转页面，提示
         this.$router.push('/')
         this.$toast.success('登陆成功')
