@@ -1,5 +1,7 @@
 import axios from 'axios'
 import JSONbig from 'json-bigint'
+import store from '@/store'
+
 const request = axios.create({
   timeout: 5000,
   baseURL: 'http://ttapi.research.itcast.cn',
@@ -28,6 +30,12 @@ const request = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use(function (config) {
+  // console.log(config)
+  // 判断是否是登录状态   此处是一个js文件，不是组件，要导入store
+  if (store.state.user) {
+    // 是登录状态的请求，自动携带token
+    config.headers.Authorization = `Bearer ${store.state.user.token}`
+  }
   return config
 }, function (error) {
   return Promise.reject(error)
