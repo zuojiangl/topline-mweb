@@ -61,6 +61,24 @@ export default {
         this.$toast.fail('登录失败')
       }
     }
+  },
+  created () {
+    // 配置VeeValidate的自定义验证信息
+    const dict = {
+      custom: {
+        // 验证的文本框
+        mobile: {
+          // 验证规则失败之后的提示信息
+          required: '请输入手机号码',
+          digits: '手机号码必须是11位的数字上'
+        },
+        code: {
+          required: '请输入验证码',
+          digits: '验证码必须是6位的数字'
+        }
+      }
+    }
+    this.$validator.localize('custom', dict)
   }
 }
 </script>
