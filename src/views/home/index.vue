@@ -2,7 +2,7 @@
   <div>
     <van-nav-bar title="首页" fixed></van-nav-bar>
     <van-tabs>
-      <van-tab v-for="index in 8" :key="index" :title="'标签 ' + index">
+      <van-tab v-for="channel in channels" :key="channel.id" :title="channel.name">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <van-cell v-for="item in list" :key="item" :title="item" />
         </van-list>
@@ -12,16 +12,31 @@
 </template>
 
 <script>
+import { getDefaultOrUserChannels } from '@/api/channel'
 export default {
   data () {
     return {
+      // 列表用的数据
       list: [],
       loading: false,
-      finished: false
+      finished: false,
+      // 频道列表
+      channels: []
     }
   },
-
+  created () {
+    this.loadChannels()
+  },
   methods: {
+    // 加载频道列表
+    async loadChannels () {
+      try {
+        const data = await getDefaultOrUserChannels()
+        this.channels = data.channels
+      } catch (err) {
+        console.log(err)
+      }
+    },
     onLoad () {
       // 异步更新数据
       setTimeout(() => {
@@ -52,6 +67,9 @@ export default {
   /deep/ .van-tabs__content {
     margin-top: 90px;
     margin-bottom: 50px;
+  }
+  /deep/ .van-tab {
+    width: 20px;
   }
 }
 </style>
