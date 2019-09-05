@@ -4,17 +4,22 @@
     <van-tabs animated v-model="activeIndex">
       <!-- 频道列表 -->
       <van-tab v-for="channel in channels" :key="channel.id" :title="channel.name">
-        <!-- 文章列表 -->
-        <van-list
-        v-model="currentChannel.loading"
-        :finished="currentChannel.finished"
-        finished-text="没有更多了"
-        @load="onLoad">
-          <van-cell
-          v-for="article in currentChannel.articles"
-          :key="article.art_id.toString()"
-          :title="article.title" />
-        </van-list>
+         <!-- 下拉加载更多组件 -->
+        <van-pull-refresh v-model="currentChannel.pullLoading" @refresh="onRefresh">
+          <!-- 文章列表,不同的标签页下有不同的列表 -->
+          <van-list
+            v-model="currentChannel.loading"
+            :finished="currentChannel.finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+          >
+            <van-cell
+              v-for="article in currentChannel.articles"
+              :key="article.art_id.toString()"
+              :title="article.title"
+            />
+          </van-list>
+        </van-pull-refresh>
       </van-tab>
     </van-tabs>
   </div>
@@ -55,8 +60,11 @@ export default {
         data.channels.forEach((channel) => {
           channel.timestamp = null
           channel.articles = []
+          // 上拉加载
           channel.loading = false
           channel.finished = false
+          // 下拉加载
+          channel.pullLoading = false
         })
         this.channels = data.channels
       } catch (err) {
@@ -77,6 +85,12 @@ export default {
       if (data.results.length === 0) {
         this.currentChannel.finished = true
       }
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.currentChannel.pullLoading = false
+      }, 500)
     }
   }
 }
