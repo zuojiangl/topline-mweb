@@ -1,22 +1,17 @@
 import request from '@/utils/request'
 
 /**
- *
- * @param {*} 参数 channel_id， timestamp，with_top
+ * 获取文章列表（登录和不登录）
+ * @param {*} 参数 channel_id,timestamp,with_top
  */
-export const getArticles = ({
-  // 频道的ID
-  channelId,
-  // 时间戳
-  timestamp,
-  // 是否置顶
-  withTop
-}) => {
+export const getArticles = (
+  obj
+) => {
   return request.get('/app/v1_1/articles', {
     params: {
-      channel_id: channelId,
-      timestamp,
-      with_top: withTop
+      channel_id: obj.channel_id,
+      timestamp: obj.timestamp,
+      with_top: obj.with_top
     }
   })
 }
