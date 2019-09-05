@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar title="首页" fixed></van-nav-bar>
-    <van-tabs>
+    <van-tabs animated v-model="activeIndex">
       <van-tab v-for="channel in channels" :key="channel.id" :title="channel.name">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <van-cell v-for="item in list" :key="item" :title="item" />
@@ -21,7 +21,10 @@ export default {
       loading: false,
       finished: false,
       // 频道列表
-      channels: []
+      channels: [],
+      // tab是组件中默认显示的tab项的索引
+      // 通过该index，可以找到当前的频道对象
+      activeIndex: 0
     }
   },
   created () {
