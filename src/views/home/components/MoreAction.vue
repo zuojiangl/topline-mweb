@@ -1,6 +1,11 @@
 <template>
+<!-- 不能使用v-model="value
+value是通过props单向传递的
+当dialog组件中input事件触发说明要去更改value"
+@input="handleInput(i)-->
   <van-dialog
-  v-model="show"
+  :value="value"
+  @input="$emit('input',$event)"
   :show-confirm-button="false"
   close-on-click-overlay
 >
@@ -20,9 +25,14 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Boolean,
+      required: true
+    }
+  },
   data () {
     return {
-      show: true,
       // 控制举报组件显隐
       showReports: false
     }
