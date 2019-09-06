@@ -3,7 +3,7 @@
     <van-nav-bar title="首页" fixed></van-nav-bar>
     <van-tabs animated v-model="activeIndex">
       <!-- 频道列表 -->
-      <van-tab v-for="channel in channels" :key="channel.id" :title="channel.name">
+      <van-tab type="line" v-for="channel in channels" :key="channel.id" :title="channel.name">
         <!-- 下拉加载更多组件 -->
         <van-pull-refresh
           :success-text="successText"
