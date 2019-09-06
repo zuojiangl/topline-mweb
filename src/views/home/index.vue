@@ -5,7 +5,7 @@
       <!-- 频道列表 -->
       <van-tab v-for="channel in channels" :key="channel.id" :title="channel.name">
          <!-- 下拉加载更多组件 -->
-        <van-pull-refresh v-model="currentChannel.pullLoading" @refresh="onRefresh">
+        <van-pull-refresh :success-text="successText" v-model="currentChannel.pullLoading" @refresh="onRefresh">
           <!-- 文章列表,不同的标签页下有不同的列表 -->
           <van-list
             v-model="currentChannel.loading"
@@ -40,7 +40,9 @@ export default {
       channels: [],
       // tab是组件中默认显示的tab项的索引
       // 通过该index，可以找到当前的频道对象
-      activeIndex: 0
+      activeIndex: 0,
+      // 下拉更新完成之后，成功的提示
+      successText: ''
     }
   },
   created () {
@@ -86,11 +88,20 @@ export default {
         this.currentChannel.finished = true
       }
     },
-    onRefresh () {
-      setTimeout(() => {
-        this.$toast('刷新成功')
+    // 下拉加载更多
+    async onRefresh () {
+      try {
+        const data = await getArticles({
+          channel_id: this.currentChannel.id,
+          timestamp: Date.now(),
+          with_top: 1
+        })
         this.currentChannel.pullLoading = false
-      }, 500)
+        this.currentChannel.articles.unshift(...data.results)
+        this.successText = `加载了${data.results.length}条数据`
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
@@ -107,9 +118,6 @@ export default {
   /deep/ .van-tabs__content {
     margin-top: 90px;
     margin-bottom: 50px;
-  }
-  /deep/ .van-tab {
-    width: 20px;
   }
 }
 </style>
