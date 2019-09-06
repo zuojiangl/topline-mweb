@@ -26,7 +26,13 @@
                 <!-- grid显示封面 article.cover.type   0 没有图片   1 1个图片 3 3个图片-->
                 <van-grid v-if="article.cover.type" :border="false" :column-num="3">
                   <van-grid-item v-for="(img,index) in article.cover.images" :key="img+index">
-                    <van-image height="80px" :src="img" />
+                    <van-image lazy-load height="80px" :src="img" />
+                    <!-- 图片加载的提示 -->
+                      <template v-slot:loading>
+                        <van-loading type="spinner" size="20"></van-loading>
+                      </template>
+                      <!-- 自定义加载失败 -->
+                      <template v-slot:error>加载失败</template>
                   </van-grid-item>
                 </van-grid>
                 <p>
@@ -47,7 +53,10 @@
 <script>
 import { getDefaultOrUserChannels } from '@/api/channel'
 import { getArticles } from '@/api/article'
+import Vue from 'vue'
+import { Lazyload } from 'vant'
 
+Vue.use(Lazyload)
 export default {
   data () {
     return {
@@ -132,6 +141,7 @@ export default {
     position: fixed;
     top: 46px;
     left: 0;
+    right: 0px;
     z-index: 100;
   }
   /deep/ .van-tabs__content {
