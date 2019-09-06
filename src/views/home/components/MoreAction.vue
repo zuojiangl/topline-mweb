@@ -10,9 +10,9 @@ value是通过props单向传递的
   close-on-click-overlay
 >
   <van-cell-group v-show="!showReports">
-    <van-cell title="不感兴趣" icon="location-o" />
+    <van-cell title="不感兴趣" icon="location-o" @click="handle('dislike')" />
     <van-cell title="反馈垃圾内容" icon="location-o" is-link @click="showReports= true"/>
-    <van-cell title="拉黑作者" icon="location-o" />
+    <van-cell title="拉黑作者" icon="location-o" @click="handle('blacklist')" />
   </van-cell-group>
   <van-cell-group v-show="showReports">
     <van-cell icon="arrow-left" @click="showReports= false"/>
@@ -24,10 +24,16 @@ value是通过props单向传递的
 </template>
 
 <script>
+import { dislikeArticle } from '@/api/article'
 export default {
   props: {
     value: {
       type: Boolean,
+      required: true
+    },
+    // 接收父组件传递的文章对象
+    article: {
+      type: Object,
       required: true
     }
   },
@@ -35,6 +41,26 @@ export default {
     return {
       // 控制举报组件显隐
       showReports: false
+    }
+  },
+  methods: {
+    handle (type) {
+      switch (type) {
+        case 'dislike':
+          // 不感兴趣
+          this.dislike()
+          break
+        case 'blacklist':
+          break
+      }
+    },
+    async dislike () {
+      try {
+        await dislikeArticle(this.article.art_id)
+        this.$toast.success('操作成功')
+      } catch (err) {
+        this.$toast.fail('操作失败')
+      }
     }
   }
 }
