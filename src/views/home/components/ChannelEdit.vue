@@ -113,6 +113,7 @@ export default {
         // 告诉父组件，选中的频道的索引
         // 关闭对话框
         this.$emit('activeChange', index)
+        return
       }
       // 2.编辑模式
       // 2.1把点击的频道，从我的频道移除
@@ -133,6 +134,11 @@ export default {
     },
     // 点击推荐频道时候
     async handleChannelItem (channel) {
+      this.$set(channel, 'timestamp', null)
+      this.$set(channel, 'articles', [])
+      this.$set(channel, 'loading', false)
+      this.$set(channel, 'finished', false)
+      this.$set(channel, 'pullLoading', false)
       // 1.把channel添加到我的频道
       this.channels.push(channel)
       // 2.判断是否登录
