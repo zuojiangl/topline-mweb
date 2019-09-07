@@ -56,7 +56,7 @@
     v-on:input="showMoreAction = $event" -->
     <!-- 如果article的值为null 不显示more-action -->
     <more-action v-if="currentArticle" @handleSuccess="handleSuccess" :article="currentArticle" v-model="showMoreAction"></more-action>
-    <channel-edit :channels="channels" v-model="showChannelEdit"></channel-edit>
+    <channel-edit :active="activeIndex" :channels="channels" v-model="showChannelEdit"></channel-edit>
   </div>
 </template>
 

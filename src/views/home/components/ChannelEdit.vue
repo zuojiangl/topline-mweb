@@ -26,7 +26,10 @@
         </van-button>
     </van-cell>
     <van-grid>
-        <van-grid-item v-for="channel in channels" :key="channel.id" :text="channel.name">
+        <van-grid-item v-for="(channel,index) in channels" :key="channel.id">
+          <div slot="text" class="van-grid-item__text" :class="{active:active === index}">
+             {{channel.name}}
+          </div>
           <!-- 关闭按钮 -->
           <van-icon slot="icon" v-show="isEdit" class="close-icon" name="close"></van-icon>
         </van-grid-item>
@@ -49,6 +52,10 @@ export default {
     },
     channels: {
       type: Array,
+      required: true
+    },
+    active: {
+      type: Number,
       required: true
     }
   },
@@ -97,5 +104,8 @@ export default {
   position: absolute;
   right: 0;
   top: 0;
+}
+.active {
+  color:red
 }
 </style>
