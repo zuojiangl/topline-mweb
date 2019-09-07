@@ -54,6 +54,7 @@
     v-on:input="showMoreAction = $event" -->
     <!-- 如果article的值为null 不显示more-action -->
     <more-action v-if="currentArticle" @handleSuccess="handleSuccess" :article="currentArticle" v-model="showMoreAction"></more-action>
+    <channel-edit></channel-edit>
   </div>
 </template>
 
@@ -64,11 +65,14 @@ import { getItem, setItem } from '@/utils/localStorage'
 import Vue from 'vue'
 import { Lazyload } from 'vant'
 import MoreAction from './components/MoreAction'
+// 导入频道管理的组件
+import ChannelEdit from './components/ChannelEdit'
 
 Vue.use(Lazyload)
 export default {
   components: {
-    MoreAction
+    MoreAction,
+    ChannelEdit
   },
   data () {
     return {
