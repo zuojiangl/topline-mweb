@@ -55,8 +55,18 @@
     v-bind:value="showMoreAction"
     v-on:input="showMoreAction = $event" -->
     <!-- 如果article的值为null 不显示more-action -->
-    <more-action v-if="currentArticle" @handleSuccess="handleSuccess" :article="currentArticle" v-model="showMoreAction"></more-action>
-    <channel-edit :active="activeIndex" :channels="channels" v-model="showChannelEdit"></channel-edit>
+    <more-action
+      v-if="currentArticle"
+      @handleSuccess="handleSuccess"
+      :article="currentArticle"
+      v-model="showMoreAction">
+    </more-action>
+    <channel-edit
+      @activeChange="handleChange"
+      :active="activeIndex"
+      :channels="channels"
+      v-model="showChannelEdit">
+    </channel-edit>
   </div>
 </template>
 
@@ -187,6 +197,10 @@ export default {
         return article.art_id === this.currentArticle.art_id
       })
       articles.splice(index, 1)
+    },
+    handleChange (index) {
+      this.activeIndex = index
+      this.showChannelEdit = false
     }
   }
 }
