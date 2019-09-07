@@ -34,7 +34,7 @@
              {{channel.name}}
           </div>
           <!-- 关闭按钮 -->
-          <van-icon slot="icon" v-show="isEdit" class="close-icon" name="close"></van-icon>
+          <van-icon slot="icon" v-show="isEdit && index !== 0" class="close-icon" name="close"></van-icon>
         </van-grid-item>
     </van-grid>
     <van-cell title="单元格" value="内容" label="描述信息" />
@@ -47,6 +47,9 @@
 
 <script>
 import { getAllChannels } from '@/api/channel'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/localStorage'
+
 export default {
   props: {
     value: {
@@ -63,6 +66,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     recommendChannels () {
       // 1.获取我的频道中所有id组成的数组
       // map() 遍历数组，返回一个新数组，新数组中的元素由回调函数中返回的元素组成
@@ -106,6 +110,17 @@ export default {
         // 关闭对话框
         this.$emit('activeChange', index)
       }
+      // 2.编辑模式
+      // 2.1把点击的频道，从我的频道移除
+      this.channels.splice(index, 1)
+      // 2.2判断是否登录
+      // 通过mapstate做了映射
+      if (this.user) {
+        // 2.3 如果登录，发送请求
+        return
+      }
+      // 2.4 没有登陆，把频道列表记录到本地储存
+      setItem('channels', this.channels)
     }
   }
 }
