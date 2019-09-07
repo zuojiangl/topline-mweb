@@ -26,7 +26,7 @@
         </van-button>
     </van-cell>
     <van-grid>
-        <van-grid-item v-for="value in 8" :key="value" text="文字">
+        <van-grid-item v-for="channel in channels" :key="channel.id" :text="channel.name">
           <!-- 关闭按钮 -->
           <van-icon slot="icon" v-show="isEdit" class="close-icon" name="close"></van-icon>
         </van-grid-item>
@@ -44,6 +44,10 @@ export default {
   props: {
     value: {
       type: Boolean,
+      required: true
+    },
+    channels: {
+      type: Array,
       required: true
     }
   },
