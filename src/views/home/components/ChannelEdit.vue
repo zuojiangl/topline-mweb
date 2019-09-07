@@ -1,6 +1,7 @@
 <template>
   <van-popup
-   v-model="show"
+   :value="value"
+   @input="$emit('input',$event)"
    position="bottom"
    :style="{ height: '80%' }">
     hello world
@@ -9,9 +10,14 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Boolean,
+      required: true
+    }
+  },
   data () {
     return {
-      show: true
     }
   }
 }
