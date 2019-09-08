@@ -45,7 +45,7 @@
                   <span>{{article.comm_count}}评论</span>&nbsp;
                   <span>{{article.pubdate | fmDate}}</span>&nbsp;
                   <!-- 点击X，记录当前文章对象 -->
-                  <van-icon name="cross" class="close" @click="handleAction(article)" />
+                  <van-icon name="cross" class="close" @click.stop="handleAction(article)" />
                 </p>
               </div>
             </van-cell>

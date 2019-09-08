@@ -40,13 +40,14 @@
         :key="index"
         icon="search">
         <!-- 自定义右侧内容 -->
-        <van-icon v-show="isEdit" @click="handleDelete(index)" name="close" size="18px"></van-icon>
+        <van-icon v-show="isEdit" @click.stop="handleDelete(index)" name="close" size="18px"></van-icon>
       </van-cell>
     </van-cell-group>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import { getSuggestion, getSearchHistories, deleteSearchHistories } from '@/api/search'
 import { mapState } from 'vuex'
 import * as storageTools from '@/utils/localStorage'
@@ -103,7 +104,7 @@ export default {
     onCancel () {
       this.$router.push('/')
     },
-    async handleInput () {
+    handleInput: _.debounce(async function () {
       // 判断是否为空
       if (this.value.length === 0) {
         return
@@ -114,7 +115,7 @@ export default {
       } catch (err) {
         console.log(err)
       }
-    },
+    }, 300),
     // 点击历史记录的删除按钮
     handleDelete (index) {
       // 判断试否登录
