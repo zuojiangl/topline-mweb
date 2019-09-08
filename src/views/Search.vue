@@ -71,6 +71,7 @@ export default {
     if (this.user) {
       // 从服务器获取数据
       this.histories = await getSearchHistories() || []
+      this.histories = this.histories.keywords
       return
     }
     // 没有登陆，从本地储存中获取数据
