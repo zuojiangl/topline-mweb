@@ -92,7 +92,7 @@ export default {
       storageTools.setItem('history', this.histories)
     },
     onCancel () {
-
+      this.$router.push('/')
     },
     async handleInput () {
       // 判断是否为空

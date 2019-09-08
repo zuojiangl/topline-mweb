@@ -22,6 +22,14 @@ export default new Router({
                 import(/* webpackChunkName: "about" */ '../views/Search.vue')
   },
   {
+    path: '/search-result/:q',
+    name: 'search-result',
+    // 路由跳转的时候，对应的组件把动态路由参数，传递给组件
+    props: true,
+    component: () =>
+                import(/* webpackChunkName: "about" */ '../views/SearchResult.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     // route level code-splitting

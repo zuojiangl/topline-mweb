@@ -1,6 +1,9 @@
 <template>
   <div>
-    <van-nav-bar title="首页" fixed></van-nav-bar>
+    <van-nav-bar left-text="首页" fixed>
+      <van-search @click="$router.push('search')" slot="title" placeholder="请输入搜索关键词"/>
+      <van-icon name="search" slot="right" @click="$router.push('search')"/>
+    </van-nav-bar>
     <van-tabs animated v-model="activeIndex">
       <!-- 小按钮，点击弹出频道管理的弹出层 -->
       <van-icon slot="nav-right" name="wap-nav" class="nav-btn" @click="showChannelEdit=true"/>
@@ -230,5 +233,20 @@ export default {
   background-color: #fff;
   opacity: 0.8;
   font-size: 22px;
+}
+.van-search {
+  margin-top: 8px;
+  height: 30px;
+  border-radius: 20px;
+  .van-search__content {
+    background-color: #fff;
+    height: 30px;
+  }
+}
+.van-nav-bar__right {
+  i {
+    color: #fff;
+    font-size: 20px;
+  }
 }
 </style>
