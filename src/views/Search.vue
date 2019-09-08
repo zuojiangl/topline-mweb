@@ -7,14 +7,20 @@
       show-action
       @search="onSearch"
       @cancel="onCancel"
+      @input="handleInput"
+      clearable
+      background="#3e9df8"
     />
     <!-- 搜索提示 -->
-    <van-cell-group>
-      <van-cell title="单元格" icon="search" />
-      <van-cell title="单元格" icon="search" />
+    <van-cell-group v-show="value">
+      <van-cell
+       v-for="item in suggestionList"
+       :key="item"
+       :title="item"
+       icon="search" />
     </van-cell-group>
     <!-- 历史记录 -->
-    <van-cell-group>
+    <van-cell-group v-show="!value">
       <van-cell title="历史记录">
       <!-- 自定义右侧内容 -->
         <div>
@@ -32,10 +38,14 @@
 </template>
 
 <script>
+import { getSuggestion } from '@/api/search'
+
 export default {
   data () {
     return {
-      value: ''
+      value: '',
+      // 储存搜索建议
+      suggestionList: []
     }
   },
   methods: {
@@ -44,6 +54,18 @@ export default {
     },
     onCancel () {
 
+    },
+    async handleInput () {
+      // 判断是否为空
+      if (this.value.length === 0) {
+        return
+      }
+      try {
+        const data = await getSuggestion(this.value)
+        this.suggestionList = data.options
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
