@@ -12,13 +12,16 @@
       background="#3e9df8"
     />
     <!-- 搜索提示 -->
+    <!-- 只有v-html指令能够渲染标签，其他指令都不可以渲染标签 -->
     <van-cell-group v-show="value">
       <van-cell
        @click="onSearch(item)"
        v-for="(item,index) in suggestionList"
        :key="index"
        :title="item"
-       icon="search" />
+       icon="search">
+       <div slot="title" v-html="highlight(item)"></div>
+      </van-cell>
     </van-cell-group>
     <!-- 历史记录 -->
     <van-cell-group v-show="!value">
@@ -124,6 +127,11 @@ export default {
       // 未登录清除历史记录
       this.histories = []
       storageTools.setItem('history', this.histories)
+    },
+    highlight (item) {
+      // item是提示项目
+      const reg = new RegExp(this.value, 'gi')
+      return item.replace(reg, `<span style="color:red">${this.value}</span>`)
     }
   }
 }
