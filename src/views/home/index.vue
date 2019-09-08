@@ -22,7 +22,9 @@
             finished-text="没有更多了"
             @load="onLoad"
           >
+          <!-- 点击cell跳转到文章详情页 -->
             <van-cell
+              @click="$router.push({name:'detail',params:{id:article.art_id.toString()}})"
               v-for="article in currentChannel.articles"
               :key="article.art_id.toString()"
               :title="article.title"

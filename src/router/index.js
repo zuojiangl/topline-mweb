@@ -30,6 +30,14 @@ export default new Router({
                 import(/* webpackChunkName: "about" */ '../views/SearchResult.vue')
   },
   {
+    path: '/detail/:id',
+    name: 'detail',
+    // 路由跳转的时候，对应的组件把动态路由参数，传递给组件
+    props: true,
+    component: () =>
+                import(/* webpackChunkName: "about" */ '../views/detail/index.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     // route level code-splitting
