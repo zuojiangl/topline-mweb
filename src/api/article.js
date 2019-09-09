@@ -51,7 +51,7 @@ export const likeArticle = (id) => {
 
 // 取消点赞
 export const unLikeArticle = (id) => {
-  return request.post(`/app/v1_0/article/likings/${id}`)
+  return request.delete(`/app/v1_0/article/likings/${id}`)
 }
 
 // 取消不喜欢
