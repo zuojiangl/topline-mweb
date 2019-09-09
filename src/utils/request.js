@@ -1,6 +1,7 @@
 import axios from 'axios'
 import JSONbig from 'json-bigint'
 import store from '@/store'
+import router from '@/router'
 
 const request = axios.create({
   timeout: 5000,
@@ -46,7 +47,37 @@ request.interceptors.response.use(function (response) {
   // 接口返回的数据中都有data统一返回接口中的data
   // 如果没有data返回axios响应对象的data属性
   return response.data.data || response.data
-}, function (error) {
+}, async function (error) {
+  // 判断状态码是否是401
+  // console.dir(error)
+  if (error.response.status === 401) {
+    // 如果是401，使用refresh_token交换新的token
+    const refreshToken = store.state.user.refresh_token
+
+    try {
+      const response = await axios({
+        method: 'put',
+        url: 'http://ttapi.research.itcast.cn/app/v1_0/authorizations',
+        headers: {
+          Authorization: `Bearer ${refreshToken}`
+        }
+      })
+      // 新的2小时可用的token
+      const token = response.data.data.token
+      // 存储新的token
+      store.commit('setUser', {
+        token: token,
+        refresh_token: refreshToken
+      })
+      // 重新发送上一次401的请求
+      return request(error.config)
+    } catch (err) {
+      console.log(err)
+      // 跳转到首页
+      // 如果refresh_token过期，跳转到登录页面
+      router.push('/login')
+    }
+  }
   return Promise.reject(error)
 })
 
