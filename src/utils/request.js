@@ -72,10 +72,15 @@ request.interceptors.response.use(function (response) {
       // 重新发送上一次401的请求
       return request(error.config)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       // 跳转到首页
       // 如果refresh_token过期，跳转到登录页面
-      router.push('/login')
+      router.push({
+        path: '/',
+        query: {
+          redirect: router.currentRoute.fullPath
+        }
+      })
     }
   }
   return Promise.reject(error)
