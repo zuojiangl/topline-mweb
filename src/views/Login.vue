@@ -69,7 +69,11 @@ export default {
         // 储存登录状态
         this.setUser(data)
         // 跳转到首页
-        this.$router.push('/')
+        // this.$router.push('/')
+        // 获取url上查询字符串redirect
+        // 如果获取到redirect，跳转到redirect指向的地址
+        // 如果没有redirect跳转到首页
+        this.$router.push(this.$route.query.redirect || '/')
         this.$toast.success('登陆成功')
       } catch (err) {
         console.log(err)
