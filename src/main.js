@@ -6,9 +6,14 @@ import router from './router'
 import store from './store'
 import './styles/index.less'
 import VeeValidate, { Validator } from 'vee-validate'
+import CheckLogin from '@/utils/CheckLogin'
+
 // 导入语言包
 import zhCN from 'vee-validate/dist/locale/zh_CN'
 import { fmDate } from '@/utils/dayjs'
+
+// 注册插件
+Vue.use(CheckLogin)
 
 // 获取相对时间的过滤器
 Vue.filter('fmDate', fmDate)
