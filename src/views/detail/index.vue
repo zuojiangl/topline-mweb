@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="article">
     <!-- 头部导航 -->
     <van-nav-bar
       title="文章详情"
@@ -18,7 +18,7 @@
       <!-- 点赞和取消 -->
       <more-action :article="article"></more-action>
       <!-- 评论列表 -->
-      <comment-list></comment-list>
+      <comment-list :isArticle="true" :id="article.art_id.toString()"></comment-list>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
   },
   data () {
     return {
-      article: {}
+      article: null
     }
   },
   created () {
