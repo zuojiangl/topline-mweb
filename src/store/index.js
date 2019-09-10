@@ -8,7 +8,8 @@ export default new Vuex.Store({
     // 项目运行时，先去本地储存中获取登录状态
     user: storageTools.getItem('user'),
     // 控制评论的回复组件是否显示
-    showReplyList: false
+    showReplyList: false,
+    currentComment: null
   },
   mutations: {
     // 通过mutation改变状态
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     setShowReplyList (state, isShow) {
       state.showReplyList = isShow
+    },
+    setCurrentComment (state, comment) {
+      state.currentComment = comment
     }
   },
   actions: {
