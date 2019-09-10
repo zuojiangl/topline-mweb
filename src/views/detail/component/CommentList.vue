@@ -23,7 +23,7 @@
         <p>
           <span>{{comment.pubdate | fmDate}}</span>
           ·
-          <span>回复{{comment.reply_count}}</span>
+          <span @click="handleShowReplyList">回复{{comment.reply_count}}</span>
         </p>
       </div>
     </van-cell>
@@ -68,6 +68,9 @@ export default {
       } catch (err) {
         this.$toast.fail('评论获取失败')
       }
+    },
+    handleShowReplyList () {
+      this.$store.commit('setShowReplyList', true)
     }
   }
 }

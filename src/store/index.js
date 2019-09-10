@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 项目运行时，先去本地储存中获取登录状态
-    user: storageTools.getItem('user')
+    user: storageTools.getItem('user'),
+    // 控制评论的回复组件是否显示
+    showReplyList: false
   },
   mutations: {
     // 通过mutation改变状态
@@ -14,6 +16,9 @@ export default new Vuex.Store({
       state.user = user
       // 把登录状态存储到本地存储中
       storageTools.setItem('user', user)
+    },
+    setShowReplyList (state, isShow) {
+      state.showReplyList = isShow
     }
   },
   actions: {
