@@ -79,4 +79,7 @@ export default {
   border-radius: 50%;
   margin-right: 5px;
 }
+.van-list {
+  margin-bottom: 64px;
+}
 </style>
