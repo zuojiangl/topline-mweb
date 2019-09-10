@@ -7,7 +7,7 @@
   :style="{ height: '80%' }"
   >
     <van-nav-bar
-      title="条评论"
+      :title="currentComment.reply_count+'条评论'"
     />
     <!-- 待评论的内容 -->
       <van-cell>
@@ -31,6 +31,7 @@
         </div>
     </van-cell>
     <!-- 回复的评论列表 -->
+    <h3>回复列表</h3>
     <comment-list :isArticle="false" :id="currentComment.com_id.toString()"></comment-list>
     <!-- 发布评论 -->
     <send-comment :target="currentComment.com_id.toString()" :isArticle="false" :art_id="art_id"></send-comment>
@@ -41,6 +42,7 @@
 import { mapState } from 'vuex'
 import CommentList from './CommentList'
 import SendComment from './SendComment'
+import eventHub from '@/utils/eventHub'
 
 export default {
   name: 'ReplyList',
@@ -51,6 +53,11 @@ export default {
   },
   computed: {
     ...mapState(['currentComment'])
+  },
+  created () {
+    eventHub.$on('sendSuccess', () => {
+      this.currentComment.reply_count++
+    })
   }
 }
 </script>
