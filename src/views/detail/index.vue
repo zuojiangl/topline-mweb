@@ -22,7 +22,7 @@
       <!-- 发布评论 -->
       <send-comment :target="article.art_id.toString()" :isArticle="true"></send-comment>
       <!-- 回复评论列表 -->
-      <reply-list v-model="showReplyList"></reply-list>
+      <reply-list v-model="showReplyList" :art_id="id"></reply-list>
     </div>
   </div>
 </template>

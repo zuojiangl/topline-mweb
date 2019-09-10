@@ -19,7 +19,7 @@ import { sendComment } from '@/api/comment'
 export default {
   name: 'SendComment',
   // 接收target 评论的目标id（评论文章即为文章id，对评论进行回复则为评论id
-  props: ['isArticle', 'target'],
+  props: ['isArticle', 'target', 'art_id'],
   data () {
     return {
       content: ''
@@ -39,7 +39,8 @@ export default {
       try {
         const data = await sendComment({
           target: this.target,
-          content: this.content
+          content: this.content,
+          artId: this.art_id
         })
         console.log(data)
         this.content = ''
