@@ -29,11 +29,13 @@ export const getComments = ({
 // 文章id，对评论内容发表回复时，需要传递此参数，表明所属文章id。对文章进行评论，不要传此参数。
 // art_id
 export const sendComment = ({
-  obj
+  target,
+  content,
+  artId
 }) => {
   return request.post('/app/v1_0/comments', {
-    target: obj.target,
-    content: obj.content,
-    art_id: obj.art_id
+    target,
+    content,
+    art_id: artId
   })
 }
