@@ -45,7 +45,10 @@ export default {
           artId: this.art_id
         })
         // 触发事件
-        eventHub.$emit('sendSuccess', data.new_obj)
+        eventHub.$emit('sendSuccess', {
+          comment: data.new_obj,
+          isArticle: this.isArticle
+        })
         // console.log(data)
         this.content = ''
       } catch (err) {
