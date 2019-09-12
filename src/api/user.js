@@ -41,3 +41,13 @@ export const getUserInfo = () => {
 export const getUserProfile = () => {
   return request.get('/app/v1_0/user/profile')
 }
+
+// 上传图片
+export const uploadPhoto = (key, file) => {
+  // 请求头中的 Content-type，默认值application/x-www-form-urlencoded,告诉服务器发送过去的数据是key=value$key=value
+  // 使用axios发送get请求，并且传递的参数是对象的时候，axios会自动把Content-type，改成application/json  发送的数据格式  JSON形式字符串
+  // 在上传文件的时候，当调用xhr.send(formData) xhr会自动把Content-type改为multipart/form-data
+  const formData = new FormData()
+  formData.append(key, file)
+  return request.patch('/app/v1_0/user/photo', formData)
+}

@@ -17,7 +17,7 @@
 <script>
 import Vue from 'vue'
 import { ImagePreview } from 'vant'
-
+import { uploadPhoto } from '@/api/user'
 Vue.use(ImagePreview)
 export default {
   name: 'UploadFile',
@@ -50,11 +50,25 @@ export default {
           ],
           // 不显示页码
           showIndex: false,
-          onClose () {
-            // do something
-          }
+          onClose: this.handleUploadPhoto
         })
       }
+    },
+    // 上传头像
+    handleUploadPhoto () {
+      this.$dialog.confirm({
+        message: '是否确认该图片作为头像'
+      }).then(async () => {
+        try {
+          const data = await uploadPhoto('photo', this.$refs.file.files[0])
+          // 更改当前的头像
+          // 通知父组件图片上传成功
+          this.$emit('upload-success', data.photo)
+          this.$toast.success('头像上传成功')
+        } catch (err) {
+          this.$toast.fail('头像上传失败')
+        }
+      })
     }
   }
 }
