@@ -5,7 +5,6 @@
       right-text="保存"
       left-arrow
       @click-left="$router.back()"
-      @click-right="btnSave"
     />
     <van-cell-group>
       <van-cell title="头像" is-link @click="showUploadFile = true">
