@@ -51,3 +51,31 @@ export const uploadPhoto = (key, file) => {
   formData.append(key, file)
   return request.patch('/app/v1_0/user/photo', formData)
 }
+
+// 获取关注用户列表
+export const getFollowings = ({
+  // 页数
+  page,
+  // 每页数量
+  perPage
+}) => {
+  return request.get('/app/v1_0/user/followings', {
+    params: {
+      page,
+      per_page: perPage
+    }
+  })
+}
+
+// 获取用户的粉丝列表
+export const getFollowers = ({
+  page,
+  perPage
+}) => {
+  return request.get('/app/v1_0/user/followers', {
+    params: {
+      page,
+      per_page: perPage
+    }
+  })
+}
