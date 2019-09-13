@@ -33,6 +33,12 @@ export default new Router({
                 import(/* webpackChunkName: "about" */ '../views/follow/index')
   },
   {
+    path: '/chat',
+    name: 'chat',
+    component: () =>
+                import(/* webpackChunkName: "about" */ '../views/Chat.vue')
+  },
+  {
     path: '/search',
     name: 'search',
     component: () =>
