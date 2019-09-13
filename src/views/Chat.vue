@@ -2,13 +2,12 @@
   <div class="page-user-chat">
     <van-nav-bar fixed left-arrow @click-left="$router.back()" title="小智同学"></van-nav-bar>
     <div class="chat-list">
-      <div class="chat-item left">
+      <div
+        v-for="chat in list"
+        :key="chat.timestamp"
+        class="chat-item" :class="chat.robot ? 'left' : 'right'">
         <van-image fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <div class="chat-pao">ewqewq</div>
-      </div>
-      <div class="chat-item right">
-        <div class="chat-pao">ewqewq</div>
-        <van-image  fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <div class="chat-pao">{{chat.msg}}</div>
       </div>
     </div>
     <div class="reply-container van-hairline--top">
@@ -26,33 +25,62 @@ export default {
   data () {
     return {
       socket: null,
+      // 消息列表
+      list: [],
       value: '',
       commentLoading: false
     }
   },
-  created () {
+  activated () {
     this.socket = io('http://ttapi.research.itcast.cn', {
       query: {
         token: this.$store.state.user.token
       }
     })
-    this.socket.on('connect', function () {
-      console.log('连接成功')
+    this.socket.on('connect', () => {
+      this.socket.send('你好')
     })
-    this.socket.on('message', function (data) {
-      console.log(data)
-    })
-    this.socket.on('disconnect', function () {
-      console.log('dis')
+    // 接收到消息
+    this.socket.on('message', (data) => {
+      // console.log(data)
+      // data -> {msg: ,timestamp:}
+      this.list.push({
+        robot: true,
+        ...data
+      })
     })
   },
+  deactivated () {
+    // 关闭连接
+    this.socket.close()
+  },
+  // created () {
+  //   this.socket = io('http://ttapi.research.itcast.cn', {
+  //     query: {
+  //       token: this.$store.state.user.token
+  //     }
+  //   })
+  //   this.socket.on('connect', function () {
+  //     console.log('连接成功')
+  //   })
+  //   this.socket.on('message', function (data) {
+  //     console.log(data)
+  //   })
+  //   this.socket.on('disconnect', function () {
+  //     console.log('dis')
+  //   })
+  // },
   methods: {
+    // 发送消息
     send () {
-      console.log('heee')
-      this.socket.send({
-        msg: '你好',
+      const data = {
+        robot: false,
+        msg: this.value,
         timestamp: Date.now()
-      })
+      }
+      this.list.push(data)
+      // 发送消息
+      this.socket.send(data)
     }
   }
 }
