@@ -30,7 +30,7 @@ export default new Router({
     path: '/follow',
     name: 'follow',
     component: () =>
-                import(/* webpackChunkName: "about" */ '../views/Follow')
+                import(/* webpackChunkName: "about" */ '../views/follow/index')
   },
   {
     path: '/search',

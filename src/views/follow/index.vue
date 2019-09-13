@@ -8,24 +8,34 @@
 
     </van-nav-bar>
     <van-tabs v-model="active" color="blue">
-      <van-tab title="关注"></van-tab>
-      <van-tab title="粉丝"></van-tab>
+      <van-tab title="关注">
+        <user-list :type="type"></user-list>
+      </van-tab>
+      <van-tab title="粉丝">
+        <user-list :type="type"></user-list>
+      </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script>
+import UserList from './component/UserList'
 export default {
   name: 'Follow',
+  components: {
+    UserList
+  },
   data () {
     return {
-      active: 1
+      active: 0,
+      // 1显示关注用户 2显示粉丝
+      type: '1'
     }
   },
   // keep-alive的钩子函数，当组件激活的时候执行
   activated () {
-    const type = this.$route.query.type
-    if (type === '1') {
+    this.type = this.$route.query.type
+    if (this.type === '1') {
       this.active = 0
     } else {
       this.active = 1
