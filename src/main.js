@@ -7,7 +7,8 @@ import store from './store'
 import './styles/index.less'
 import VeeValidate, { Validator } from 'vee-validate'
 import CheckLogin from '@/utils/CheckLogin'
-
+// 配置 flexible 设置 REM 基准值
+import 'amfe-flexible'
 // 导入语言包
 import zhCN from 'vee-validate/dist/locale/zh_CN'
 import { fmDate } from '@/utils/dayjs'
