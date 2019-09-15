@@ -18,6 +18,16 @@ export default new Router({
       path: '/user',
       component: () =>
                     import(/* webpackChunkName: "about" */ '../views/User.vue')
+    }, {
+      name: 'qa',
+      path: '/qa',
+      component: () =>
+                    import(/* webpackChunkName: "about" */ '../views/qa/index.vue')
+    }, {
+      name: 'video',
+      path: '/video',
+      component: () =>
+                    import(/* webpackChunkName: "about" */ '../views/video/index.vue')
     }]
   },
   {
