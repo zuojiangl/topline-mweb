@@ -80,11 +80,10 @@ export default {
         msg: this.value,
         timestamp: Date.now()
       }
-      this.list.push(data)
       // 发送消息
       this.socket.send(data)
-      this.value = ''
       this.list.push(data)
+      this.value = ''
       // 更新滚动条的位置
       this.update()
     },
