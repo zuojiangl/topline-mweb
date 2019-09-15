@@ -90,12 +90,12 @@ export default {
 
 <style lang="less" scoped>
 .avatar {
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .van-list {
-  margin-bottom: 64px;
+  margin-bottom:128px;
 }
 </style>

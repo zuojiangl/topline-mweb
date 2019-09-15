@@ -105,7 +105,7 @@ export default {
 
 <style lang="less" scoped>
 .login-btn {
-  padding: 20px;
+  padding: 40px;
   .btn {
     width: 100%;
   }

@@ -51,7 +51,7 @@ export default {
 
 <style lang="less" scoped>
 .more-action {
-  padding: 20px;
+  padding: 40px;
   display: flex;
   justify-content: space-around;
 }

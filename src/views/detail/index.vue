@@ -77,14 +77,14 @@ export default {
 
 <style lang="less" scoped>
 .article {
-  margin-top: 50px;
-  padding: 0px 20px;
+  margin-top: 100px;
+  padding: 0px 40px;
   .article-title {
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
   }
   .article-content {
-    font-size: 16px;
+    font-size:32px;
   }
 }
 </style>

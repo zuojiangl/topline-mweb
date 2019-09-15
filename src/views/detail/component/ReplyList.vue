@@ -66,9 +66,9 @@ export default {
 
 <style lang="less" scoped>
 .avatar {
-  width: 25px;
-  height: 25px;
+  width: 50px;
+  height: 50px;
   border-radius: 100%;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 </style>

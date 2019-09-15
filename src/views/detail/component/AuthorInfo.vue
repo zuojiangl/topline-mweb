@@ -59,15 +59,15 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 26px;
   .base-info {
     display: flex;
     align-items: center;
   }
   .avatar {
-    margin-right: 10px;
-    width: 50px;
-    height: 50px;
+    margin-right: 20px;
+    width: 100px;
+    height:   100px;
     border-radius: 100%;
   }
 }

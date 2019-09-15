@@ -82,6 +82,6 @@ export default {
 
 <style lang="less" scoped>
 .van-list {
-  margin-top: 46px;
+  margin-top: 92px;
 }
 </style>

@@ -66,23 +66,23 @@ export default {
   bottom: 0;
   width: 100%;
   background: #fff;
-  padding: 10px;
-  border-top: 2px solid #ccc;
+  padding: 20px;
+  border-top: 4px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: space-around;
   .input-wrap {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    height: 30px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    height: 60px;
     display: flex;
     align-items: center;
     width: 50%;
     input {
       border: none;
       color: #999;
-      font-size: 15px;
+      font-size: 30px;
     }
   }
   .more-wrap {
