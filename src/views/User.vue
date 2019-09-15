@@ -47,6 +47,7 @@
         <van-cell title="用户反馈" is-link />
         <van-cell title="小智同学" to="/chat" is-link />
         <van-cell title="系统设置" is-link to="/settings" />
+        <van-cell title="退出登录" is-link to="/login" />
       </van-cell-group>
     </div>
   </div>
